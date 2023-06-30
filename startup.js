@@ -223,7 +223,7 @@ var configFile = '';
 if (configArg) {
   configFile = 'configs/' + configArg;
 } else {
-  configFile = 'configs/default.yaml';
+  configFile = 'configs/test1.yaml';
 }
 
 
