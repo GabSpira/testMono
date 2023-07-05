@@ -5,6 +5,9 @@ This source code is protected by copyright law and international treaties. This 
 
 **************************************************************************/
 
+
+
+
 function checkOrientation() {//when changing from potrait to landscape change to the rigth width
 
   var siteWidth = document.body.scrollWidth;
