@@ -10,7 +10,7 @@ This source code is protected by copyright law and international treaties. This 
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-
+import { getFirestore , doc, setDoc} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7y9iBRvyxim9_9l8m5LQRexBdB63cmHo",
@@ -28,7 +28,70 @@ firebase.initializeApp(firebaseConfig);
 // Ottieni istanza di Firestore
 const db = firebase.firestore();
 
+const firestore = getFirestore();
 
+const test_result = doc(firestore, 'results/testResults')
+
+
+function writeResult() {
+  const docData = {
+    age: 35,
+    life: good,
+  };
+  setDoc(test_result, docData);
+}
+
+console.log('checkkkkkk')
+writeResult();
+
+
+// var resultsRef = firebase.firestore().collection("results");
+
+// function usersData() {
+//   resultsRef.add({
+//     age: age,
+//     years: years
+//   })
+//   .then(function(docRef) {
+//     console.log("Dati dell'utente scritti con successo. ID del documento:", docRef.id);
+//   })
+//   .catch(function(error) {
+//     console.error("Errore nella scrittura dei dati dell'utente:", error);
+//   });
+// }
+
+
+
+
+
+// // 
+// document.getElementById('index.html').addEventListener('submit', function(e) {
+//   e.preventDefault(); // Evita il comportamento predefinito dell'invio del modulo
+
+//   // Recupera i dati dal modulo
+//   var name = document.getElementById('name').value;
+//   var email = document.getElementById('email').value;
+//   // Recupera gli altri dati necessari
+
+//   // Crea un oggetto con i dati da inviare a Firestore
+//   var data = {
+//     name: name,
+//     email: email,
+//     // Aggiungi gli altri dati al tuo oggetto 'data'
+//   };
+
+//   // Invia i dati a Firestore utilizzando la libreria Firebase
+//   firebase.firestore().collection('results').add(data)
+//     .then(function() {
+//       // Dati inviati con successo
+//       alert('Dati inviati con successo a Firestore!');
+//       // Puoi anche reindirizzare l'utente a una pagina di conferma o fare altre operazioni qui
+//     })
+//     .catch(function(error) {
+//       // Gestione degli errori in caso di problemi nell'invio dei dati
+//       console.error('Errore nell\'invio dei dati a Firestore:', error);
+//     });
+// });
 
 
 

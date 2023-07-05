@@ -42,7 +42,7 @@ def salva_risposta_test(request):
 
     try:
         dati_risposta = request.get_json()  # I dati delle risposte inviate dall'utente
-
+        print(dati_risposta)
         # Salva i dati delle risposte nella collezione "results"
         risultato = collection_ref.add(dati_risposta)
         print('Risposta del test salvata con ID:', risultato[1].id)
