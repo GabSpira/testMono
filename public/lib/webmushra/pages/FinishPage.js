@@ -5,17 +5,20 @@ This source code is protected by copyright law and international treaties. This 
 
 **************************************************************************/
 
-function FinishPage(_pageManager, _session, _dataSender, _pageConfig, _language) {
+function FinishPage(_pageManager, _session, _dataSender, _pageConfig, _language, _configFile) {
   this.pageManager = _pageManager;
   this.session = _session;
   this.dataSender = _dataSender;
   this.pageConfig = _pageConfig;
   this.language = _language;
+  this.configFile = _configFile;
   
   this.likert = null;   
   this.interval = null;
   
   this.errorDiv = $("<div style='color:red; font-weight:bold;'></div>");
+
+  console.log(this.configFile);
   
 
   
@@ -23,8 +26,6 @@ function FinishPage(_pageManager, _session, _dataSender, _pageConfig, _language)
     this.pageConfig.questionnaire = new Array();
   }
   
-
-
     
 }
 
@@ -46,12 +47,90 @@ FinishPage.prototype.storeParticipantData = function() {
    }
 };
 
+
+
 FinishPage.prototype.sendResults = function() {
-  var err = this.dataSender.send(this.session);
-  if (err == true) {
-    this.errorDiv.text("An error occured while sending your data to the server! Please contact the experimenter.");
+  // var err = this.dataSender.send(this.session);
+  // if (err == true) {
+  //   this.errorDiv.text("An error occured while sending your data to the server! Please contact the experimenter.");
+  // }
+  // clearInterval(this.interval);
+
+  // user data
+  const age = document.getElementById('age').value;
+  const gender = this.session.participant.response[1];
+  const years_training = document.getElementById('years_training').value;
+  const country = document.getElementById('country').value;
+  const feedback = document.getElementById('feedback').value;
+  
+
+  // console.log(gender);
+
+
+  var trials = this.session.trials;
+  var rhythm = [];
+  var score = [];
+  for (i = 0; i < trials.length; ++i) {       // for each page of the test
+    var trial = trials[i];
+
+    for(j = 0; j < trial.responses.length; ++j){      // for each element in the page
+      rhythm[trial.responses.length*i+j] = trial.responses[j].stimulus;
+      score[trial.responses.length*i+j] = trial.responses[j].stimulusRating;
+      // console.log(rhythm[j]);
+    }     
   }
-  clearInterval(this.interval);
+
+  // console.log(rhythm, score);
+  // console.log(typeof(rhythm), typeof(score));
+
+  // sorted_rhythm = rhythm.sort();
+
+  // var ratings = [];
+  // for (var i = 0; i < rhythm.length; i++) {
+  //   var rating = {
+  //     rhythm: rhythm[i],
+  //     score: score[i]
+  //   };
+  //   ratings.push(rating);
+  // }
+
+  var ratings = [];
+
+  // Popola l'array data con gli oggetti rappresentanti la coppia di rhythm e score
+  for (var i = 0; i < rhythm.length; i++) {
+    var obj = {
+      rhythm: rhythm[i],
+      score: score[i]
+    };
+    ratings.push(obj);
+  }
+
+  ratings.sort(function(a, b) {
+    return a.rhythm.localeCompare(b.rhythm);
+  });
+  
+  // Estrai gli array ordinati di rhythm e score
+  var sorted_rhythm = ratings.map(function(obj) {
+    return obj.rhythm;
+  });
+  
+  var sorted_score = ratings.map(function(obj) {
+    return obj.score;
+  });
+
+  // sorted_rhythm = Object.values(sorted_rhythm);
+  // sorted_score = Object.values(sorted_score);
+
+  // console.log(typeof(sorted_rhythm), typeof(sorted_score));
+
+  if (this.configFile==='configs/test1.yaml'){
+    sendUserDataToFirebase_test1(age,gender,years_training,country,feedback, sorted_rhythm, sorted_score);
+  } else if (this.configFile==='configs/test2.yaml') { 
+    sendUserDataToFirebase_test2(age,gender,years_training,country,feedback, sorted_rhythm, sorted_score);
+  } else if (this.configFile==='configs/test3.yaml') {
+    sendUserDataToFirebase_test3(age,gender,years_training,country,feedback, sorted_rhythm, sorted_score);
+  };
+  
 };
 
 FinishPage.prototype.render = function (_parent) {
@@ -78,12 +157,13 @@ FinishPage.prototype.render = function (_parent) {
       }else if (element.type === "long_text"){
         table.append($("<tr><td id='labeltd' style='vertical-align:top; padding-top:"+ $('#feedback').css('margin-top') +"'><strong>"+ element.label +"</strong></td><td><textarea name='"+element.name+"' id='"+element.name+"'></textarea></td></tr>"));      
       }
-      console.log(element);    
+      // console.log(element);    
     }
     var button = $("<button id='send_results' data-role='button' data-inline='true' disabled='disabled'>" + this.pageManager.getLocalizer().getFragment(this.language, 'sendButton') +"</button>");
     button.bind( "click", (function(event, ui) {
       this.storeParticipantData();
       this.sendResults();
+
 
       $("#popupDialog").popup("open");
     }).bind(this));
@@ -300,3 +380,13 @@ FinishPage.prototype.load = function() {
     $('#send_results').removeAttr('disabled');
   }  
 };
+
+
+// FinishPage.prototype.sendToFirestore = function(){
+//   const db = firebase.firestore();
+//   // const testResultsCollection = db.collection('testResults');
+//   db.collection("testResults").add({
+//     age:age,
+//     // variable2: variable2,
+//   })
+// }

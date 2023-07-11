@@ -8,95 +8,6 @@ This source code is protected by copyright law and international treaties. This 
 
 
 
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import { getFirestore , doc, setDoc} from 'firebase/firestore';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD7y9iBRvyxim9_9l8m5LQRexBdB63cmHo",
-  authDomain: "maelisteningtest.firebaseapp.com",
-  projectId: "maelisteningtest",
-  storageBucket: "maelisteningtest.appspot.com",
-  messagingSenderId: "953894482343",
-  appId: "1:953894482343:web:a505e13240e8ea5dac0682",
-  measurementId: "G-F2RS4PDMKP"
-};
-
-// Inizializza l'app Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Ottieni istanza di Firestore
-const db = firebase.firestore();
-
-const firestore = getFirestore();
-
-const test_result = doc(firestore, 'results/testResults')
-
-
-function writeResult() {
-  const docData = {
-    age: 35,
-    life: good,
-  };
-  setDoc(test_result, docData);
-}
-
-console.log('checkkkkkk')
-writeResult();
-
-
-// var resultsRef = firebase.firestore().collection("results");
-
-// function usersData() {
-//   resultsRef.add({
-//     age: age,
-//     years: years
-//   })
-//   .then(function(docRef) {
-//     console.log("Dati dell'utente scritti con successo. ID del documento:", docRef.id);
-//   })
-//   .catch(function(error) {
-//     console.error("Errore nella scrittura dei dati dell'utente:", error);
-//   });
-// }
-
-
-
-
-
-// // 
-// document.getElementById('index.html').addEventListener('submit', function(e) {
-//   e.preventDefault(); // Evita il comportamento predefinito dell'invio del modulo
-
-//   // Recupera i dati dal modulo
-//   var name = document.getElementById('name').value;
-//   var email = document.getElementById('email').value;
-//   // Recupera gli altri dati necessari
-
-//   // Crea un oggetto con i dati da inviare a Firestore
-//   var data = {
-//     name: name,
-//     email: email,
-//     // Aggiungi gli altri dati al tuo oggetto 'data'
-//   };
-
-//   // Invia i dati a Firestore utilizzando la libreria Firebase
-//   firebase.firestore().collection('results').add(data)
-//     .then(function() {
-//       // Dati inviati con successo
-//       alert('Dati inviati con successo a Firestore!');
-//       // Puoi anche reindirizzare l'utente a una pagina di conferma o fare altre operazioni qui
-//     })
-//     .catch(function(error) {
-//       // Gestione degli errori in caso di problemi nell'invio dei dati
-//       console.error('Errore nell\'invio dei dati a Firestore:', error);
-//     });
-// });
-
-
-
-
-
 
 
 
@@ -115,13 +26,6 @@ window.onresize = function(event) {
   checkOrientation();
 };
 
-// $(document).ready(function(){
-// $(window).scroll(function(){
-// $('#header').css({
-// 'left': $(this).scrollLeft()//Note commented because it causes the endless scrolling to the left
-// });
-// });
-// });
 
 
 // callbacks
@@ -130,6 +34,7 @@ function callbackFilesLoaded() {
   pageTemplateRenderer.renderProgressBar(("page_progressbar"));
   pageTemplateRenderer.renderHeader(("page_header"));
   pageTemplateRenderer.renderNavigation(("page_navigation"));
+  
 
   if (config.stopOnErrors == false || !errorHandler.errorOccurred()) {
     $.mobile.loading("hide");
@@ -148,6 +53,8 @@ function callbackFilesLoaded() {
   if ($.mobile.activePage) {
     $.mobile.activePage.trigger('create');
   }
+
+  
 }
 
 function callbackURLFound() {
@@ -160,7 +67,7 @@ function callbackURLFound() {
   $("#popupErrors").popup("open");
 }
 
-function addPagesToPageManager(_pageManager, _pages) {
+function addPagesToPageManager(_pageManager, _pages, configFile) {
   for (var i = 0; i < _pages.length; ++i) {
     if (Array.isArray(_pages[i])) {
       if (_pages[i][0] === "random") {
@@ -196,7 +103,7 @@ function addPagesToPageManager(_pageManager, _pages) {
         var likertMultiStimulusPage = new LikertMultiStimulusPage(pageManager, pageTemplateRenderer, pageConfig, audioContext, config.bufferSize, audioFileLoader, session, errorHandler, config.language);
         _pageManager.addPage(likertMultiStimulusPage);
       } else if (pageConfig.type == "finish") {
-        var finishPage = new FinishPage(_pageManager, session, dataSender, pageConfig, config.language);
+        var finishPage = new FinishPage(_pageManager, session, dataSender, pageConfig, config.language, configFile);
         _pageManager.addPage(finishPage);
       } else {
 
@@ -218,6 +125,7 @@ for (var i = 0; i < $("body").children().length; i++) {
 
 function startup(config) {
 
+  
 
   if (config == null) {
     errorHandler.sendError("URL couldn't be found!");
@@ -234,8 +142,8 @@ function startup(config) {
     });
     clearInterval(interval);
   }, 1);
-  
-  
+
+
   if (pageManager !== null) { // clear everything for new experiment
     pageTemplateRenderer.clear();
     $("#page_content").empty();
@@ -296,7 +204,7 @@ function startup(config) {
   pageTemplateRenderer = new PageTemplateRenderer(pageManager, config.showButtonPreviousPage, config.language);
   pageManager.addCallbackPageEventChanged(pageTemplateRenderer.refresh.bind(pageTemplateRenderer));
 
-  addPagesToPageManager(pageManager, config.pages);
+  addPagesToPageManager(pageManager, config.pages, configFile);
 
   interval2 = setInterval(function() {
     clearInterval(interval2);
@@ -305,21 +213,24 @@ function startup(config) {
 
 }
 
-// start code (loads config) 
+// start code (loads config)
 
 function getParameterByName(name) {
   var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
   return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
+
+
 var config = null;
 var configArg = getParameterByName("config");
 var configFile = '';
-if (configArg) {
-  configFile = 'configs/' + configArg;
-} else {
-  configFile = 'configs/test1.yaml';
-}
+
+
+
+test1 = 'configs/test1.yaml';
+test2 = 'configs/test2.yaml';
+test3 = 'configs/test3.yaml';
 
 
 // global variables
@@ -333,9 +244,38 @@ var dataSender = null;
 var session = null;
 var pageTemplateRenderer = null;
 var interval2 = null;
+window.configData = null;
+
+getTestVisitsCounts().then(visitCounts => {
+  const { count1, count2, count3 } = visitCounts;
+
+  console.log('test1 has', count1, 'visits');
+  console.log('test2 has', count2, 'visits');
+  console.log('test3 has', count3, 'visits');
+
+  var priority_counts = [count1, count2, count3];
+  priority_counts = priority_counts.sort();
+  var lower_visits = priority_counts[0];
+
+  console.log(priority_counts);
+  
+  if (lower_visits===count1) {
+    configFile = test1;
+    console.log('test 1 has the lower number of visits, so you are doing test 1');
+  } else if (lower_visits===count2) {
+    configFile = test2;
+    console.log('test 2 has the lower number of visits, so you are doing test 2');
+  } else {
+    configFile = test3;
+    console.log('test 3 has the lower number of visits, so you are doing test 3')};
+
+  YAML.load(configFile, (function(result) {
+    config = result;
+    startup(result);
+  }));
+
+}).catch(error => {
+  console.error("Errore durante il recupero dei conteggi delle visite:", error);
+});
 
 
-YAML.load(configFile, (function(result) {
-  config = result;
-  startup(result);
-}));

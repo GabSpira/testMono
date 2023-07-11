@@ -16,7 +16,7 @@ N = 10  # the number of files in each sub-folder
 def move_files(abs_dirname):
 
     # Set your directory here
-    direc = './patterns/dataset_001'
+    direc = './patterns/dataset_003'
 
     files = [os.path.join(abs_dirname, f) for f in os.listdir(abs_dirname)]
 
