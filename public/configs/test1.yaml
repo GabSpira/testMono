@@ -12,7 +12,7 @@ pages:
 
     - type: generic
       id: first_page
-      name: "Welcome and thank you for partecipating! Test1" 
+      name: "Welcome and thank you for partecipating!" 
       content: >
               Welcome to this listening test, and thank you for your contribution. <br/>
               <br/>
@@ -240,7 +240,7 @@ pages:
       name: Thank you
       content: Thank you for attending! <br/> <br/> Please insert your personal data to complete the test. <br/> <br/> <br/>
       popupContent: Your results were sent. Goodbye!
-      showResults: true
+      showResults: false
       writeResults: true
       questionnaire:
           - type: number

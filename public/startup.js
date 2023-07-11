@@ -249,27 +249,28 @@ window.configData = null;
 getTestVisitsCounts().then(visitCounts => {
   const { count1, count2, count3 } = visitCounts;
 
-  console.log('test1 has', count1, 'visits');
-  console.log('test2 has', count2, 'visits');
-  console.log('test3 has', count3, 'visits');
+  // console.log('test1 has', count1, 'visits');
+  // console.log('test2 has', count2, 'visits');
+  // console.log('test3 has', count3, 'visits');
 
   var priority_counts = [count1, count2, count3];
   priority_counts = priority_counts.sort();
   var lower_visits = priority_counts[0];
 
-  console.log(priority_counts);
+  // console.log(priority_counts);
   
   if (lower_visits===count1) {
     configFile = test1;
-    console.log('test 1 has the lower number of visits, so you are doing test 1');
+    // console.log('test 1 has the lower number of visits, so you are doing test 1');
   } else if (lower_visits===count2) {
     configFile = test2;
-    console.log('test 2 has the lower number of visits, so you are doing test 2');
+    // console.log('test 2 has the lower number of visits, so you are doing test 2');
   } else {
     configFile = test3;
-    console.log('test 3 has the lower number of visits, so you are doing test 3')};
+    // console.log('test 3 has the lower number of visits, so you are doing test 3')
+  };
     
-  // configFile = test1;
+  configFile = test3;
     
   YAML.load(configFile, (function(result) {
     config = result;
@@ -280,7 +281,11 @@ getTestVisitsCounts().then(visitCounts => {
   console.error("Errore durante il recupero dei conteggi delle visite:", error);
 });
 
-// configFile = test3;
+// console.log('test1 has', count1, 'visits');
+// console.log('test2 has', count2, 'visits');
+// console.log('test3 has', count3, 'visits');
+
+// configFile = test1;
     
 // YAML.load(configFile, (function(result) {
 //   config = result;

@@ -20,6 +20,7 @@ function FinishPage(_pageManager, _session, _dataSender, _pageConfig, _language,
 
   console.log(this.configFile);
   
+  
 
   
   if (this.pageConfig.questionnaire === undefined) {

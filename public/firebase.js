@@ -17,7 +17,7 @@ firebase.initializeApp(firebaseConfig);
 if (firebase.apps.length === 0) {
     console.error("Modulo Firebase SDK non configurato correttamente!");
   } else {
-    console.log("Connessione a Firebase stabilita correttamente!");
+    // console.log("Connessione a Firebase stabilita correttamente!");
   }
 
 var db = firebase.firestore();
@@ -32,9 +32,15 @@ async function getTestVisitsCounts() {
   const querySnapshot2 = await results_2.get();
   const querySnapshot3 = await results_3.get();
 
+  // console.log(querySnapshot1);
+
   const count1 = querySnapshot1.size;
   const count2 = querySnapshot2.size;
   const count3 = querySnapshot3.size;
+
+  // console.log(count1, count2, count3);
+
+  // console.log('funziona');
 
   return {
     count1,
