@@ -5,7 +5,7 @@ import dataframe_image as dfi
 
 
 # # Carica il file JSON
-with open('./output/exportedData.json', 'r') as file:
+with open('./output/exportedData3.json', 'r') as file:
     data = json.load(file)
 
 
@@ -13,35 +13,6 @@ with open('./output/exportedData.json', 'r') as file:
 
 # # Estrai i dati da userRatings
 # user_ratings = data[0]['userRatings']
-
-# # Crea un DataFrame vuoto
-# df = pd.DataFrame()
-
-# # Aggiungi le colonne di userData al DataFrame
-# for key, value in user_data.items():
-#     df[key] = [value]
-
-# # Aggiungi le colonne di userRatings al DataFrame
-# for rating in user_ratings:
-#     rhythm = rating['rhythm']
-#     score = rating['score']
-#     df[rhythm] = [score]
-
-# # Stampa il DataFrame
-# print(df)
-
-
-# df_styled = df.head(200).style.set_properties(**{'background-color': '#fee68f',
-#                                                             'color': '#830340',
-#                                                             'border-color': 'blue',
-#                                                             'align': 'center'})
-#                                             #                 \
-#                                             # .format({"Loudness": "{:20,.0f} dB"})
-# df_styled = df_styled.set_caption("Features of the selected song")
-
-# #export dataframe
-# # os.makedirs('./output/Images', exist_ok=False)
-# dfi.export(df_styled, './output/Images/test1_DataFrame.png', max_cols=-1)
 
 
 results_data = []
@@ -80,4 +51,4 @@ df_styled = df_styled.set_caption("Features of the selected song")
 
 #export dataframe
 # os.makedirs('./output/Images', exist_ok=False)
-dfi.export(df_styled, './output/Images/test1_DataFrame.png', max_cols=-1)
+dfi.export(df_styled, './output/Images/test3_DataFrame.png', max_cols=-1)

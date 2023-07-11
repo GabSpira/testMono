@@ -168,6 +168,24 @@ body.ui-mobile-viewport, div.ui-mobile-viewport {
   
 }
 
+
+#page_content audio::-moz-media-controls-panel {
+  background-color: #5cb0ff23;
+  box-shadow: 0 0 0.8vmin 0.2vmin rgba(50, 43, 141, 0.055),
+              inset 0 0.5vmin 1vmin 0.2vmin rgba(205, 249, 255, 0.534),
+              inset 0 -10px 4vmin 0.1px rgba(22, 8, 148, 0.252);
+  
+}
+#page_content audio::-ms-media-controls-panel {
+  background-color: #5cb0ff23;
+  box-shadow: 0 0 0.8vmin 0.2vmin rgba(50, 43, 141, 0.055),
+              inset 0 0.5vmin 1vmin 0.2vmin rgba(205, 249, 255, 0.534),
+              inset 0 -10px 4vmin 0.1px rgba(22, 8, 148, 0.252);
+  
+}
+
+
+
 .ui-corner-top.ui-header.ui-bar-inherit{
   color: rgb(255, 242, 140);
   font-family: contentFont;
@@ -197,7 +215,6 @@ body.ui-mobile-viewport, div.ui-mobile-viewport {
   box-shadow: 0 0 0.8vmin 0.2vmin rgba(50, 43, 141, 0.07),
               inset 0.8vmin 0.5vmin 1vmin 0.2vmin rgba(246, 218, 142, 0.181),
               inset 0 -10px 4vmin 0.1px rgba(22, 8, 148, 0.084);
-
 }
 
 
@@ -207,7 +224,7 @@ body.ui-mobile-viewport, div.ui-mobile-viewport {
   
   background-color: #fcf9b400;
   color: rgb(0, 13, 81);
-  width:16vmin;
+  width:20%;
 
 }
 
@@ -340,7 +357,8 @@ td.stopButton {
 }
 
 .fileplayer_progressbar {
-  width: 10em;
+  /* width: 10em; */
+  width: 120%;
   height: 1em;  
   margin: 3vmin;
   

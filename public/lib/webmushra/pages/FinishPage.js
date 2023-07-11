@@ -118,10 +118,6 @@ FinishPage.prototype.sendResults = function() {
     return obj.score;
   });
 
-  // sorted_rhythm = Object.values(sorted_rhythm);
-  // sorted_score = Object.values(sorted_score);
-
-  // console.log(typeof(sorted_rhythm), typeof(sorted_score));
 
   if (this.configFile==='configs/test1.yaml'){
     sendUserDataToFirebase_test1(age,gender,years_training,country,feedback, sorted_rhythm, sorted_score);

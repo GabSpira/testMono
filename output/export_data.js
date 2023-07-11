@@ -20,7 +20,7 @@ admin.initializeApp({
   });
 
 const db = admin.firestore();
-const collectionRef = db.collection('Results_Test_1');
+const collectionRef = db.collection('Results_Test_3');
 
 collectionRef.get()
   .then((snapshot) => {
@@ -30,7 +30,7 @@ collectionRef.get()
     });
 
     const jsonData = JSON.stringify(data);
-    fs.writeFileSync('./output/exportedData.json', jsonData);
+    fs.writeFileSync('./output/exportedData3.json', jsonData);
     console.log('Dati esportati correttamente!');
   })
   .catch((error) => {
