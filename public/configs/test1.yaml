@@ -12,7 +12,7 @@ pages:
 
     - type: generic
       id: first_page
-      name: "Welcome and thank you for partecipating! TEST1"
+      name: "Welcome and thank you for partecipating! Test1" 
       content: >
               Welcome to this listening test, and thank you for your contribution. <br/>
               <br/>

@@ -12,9 +12,9 @@ pages:
 
     - type: generic
       id: first_page
-      name: "Welcome and thank you for partecipating!"
+      name: "Welcome and thank you for partecipating! questo è non public"
       content: >
-              Welcome to this listening test, and thank you for your contribution. <br/>
+              non public Welcome to this listening test, and thank you for your contribution. <br/>
               <br/>
               The test is intended to investigate the perception of rhythmic complexity.<br/>
               <br/> 

@@ -268,7 +268,9 @@ getTestVisitsCounts().then(visitCounts => {
   } else {
     configFile = test3;
     console.log('test 3 has the lower number of visits, so you are doing test 3')};
-
+    
+  // configFile = test1;
+    
   YAML.load(configFile, (function(result) {
     config = result;
     startup(result);
@@ -278,4 +280,10 @@ getTestVisitsCounts().then(visitCounts => {
   console.error("Errore durante il recupero dei conteggi delle visite:", error);
 });
 
+// configFile = test3;
+    
+// YAML.load(configFile, (function(result) {
+//   config = result;
+//   startup(result);
+// }));
 

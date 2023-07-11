@@ -224,7 +224,8 @@ body.ui-mobile-viewport, div.ui-mobile-viewport {
   
   background-color: #fcf9b400;
   color: rgb(0, 13, 81);
-  width:20%;
+  /* width:calc(5%+1vmin); */
+  /* width:20%; */
 
 }
 
@@ -357,8 +358,8 @@ td.stopButton {
 }
 
 .fileplayer_progressbar {
-  /* width: 10em; */
-  width: 120%;
+  width: 5em;
+  /* width: calc(1em + 60%); */
   height: 1em;  
   margin: 3vmin;
   
